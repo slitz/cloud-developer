@@ -29,6 +29,7 @@ router.get('/:id',
     requireAuth,
     async (req: Request, res: Response) => {
         //@TODO try it yourself
+        let { id } = req.params;
         const caption = req.body.caption;
         const fileName = req.body.url;
 
