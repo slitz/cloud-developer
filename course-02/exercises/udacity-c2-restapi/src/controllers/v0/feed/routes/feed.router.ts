@@ -25,29 +25,29 @@ router.get('/:id',
 });
 
 // update a specific resource
-//  router.patch('/:id',
-//     requireAuth,
-//     async (req: Request, res: Response) => {
-//         //@TODO try it yourself
-//         const caption = req.body.caption;
-//         const fileName = req.body.url;
-//
-//         // check if id exists
-//         const resource = await FeedItem.findByPk(id);
-//         if (resource != null) {
-//             return res.status(404).send({ message: 'Id not found' });
-//         }
-//
-//         const item = await new FeedItem({
-//                 caption: caption,
-//                 url: fileName
-//         });
-//
-//         const saved_item = await item.save();
-//
-//         saved_item.url = AWS.getGetSignedUrl(saved_item.url);
-//         res.status(201).send(saved_item);
-// });
+ router.patch('/:id',
+    requireAuth,
+    async (req: Request, res: Response) => {
+        //@TODO try it yourself
+        const caption = req.body.caption;
+        const fileName = req.body.url;
+
+        // check if id exists
+        const resource = await FeedItem.findByPk(id);
+        if (resource != null) {
+            return res.status(404).send({ message: 'Id not found' });
+        }
+
+        const item = await new FeedItem({
+                caption: caption,
+                url: fileName
+        });
+
+        const saved_item = await item.save();
+
+        saved_item.url = AWS.getGetSignedUrl(saved_item.url);
+        res.status(201).send(saved_item);
+});
 
 
 // Get a signed url to put a new item in the bucket
