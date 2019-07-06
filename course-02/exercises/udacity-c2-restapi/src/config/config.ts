@@ -8,7 +8,7 @@ export const config = {
     "aws_reigion": process.env.AWS_REGION,
     "aws_profile": process.env.AWS_PROFILE,
     "aws_media_bucket": process.env.AWS_MEDIA_BUCKET,
-    "secret": "process.env.JWT_SECRET"
+    "secret": process.env.JWT_SECRET
   },
   "prod": {
     "username": "",
