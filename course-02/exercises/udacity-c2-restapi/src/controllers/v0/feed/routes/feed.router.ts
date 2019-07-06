@@ -17,7 +17,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 // Get a specific resource
-router.get('/:id', 
+router.get('/:id',
     async (req: Request, res: Response) => {
     let { id } = req.params;
     const item = await FeedItem.findByPk(id);
@@ -25,28 +25,45 @@ router.get('/:id',
 });
 
 // update a specific resource
-router.patch('/:id', 
-    requireAuth, 
-    async (req: Request, res: Response) => {
-        //@TODO try it yourself
-        res.send(500).send("not implemented")
-});
+//  router.patch('/:id',
+//     requireAuth,
+//     async (req: Request, res: Response) => {
+//         //@TODO try it yourself
+//         const caption = req.body.caption;
+//         const fileName = req.body.url;
+//
+//         // check if id exists
+//         const resource = await FeedItem.findByPk(id);
+//         if (resource != null) {
+//             return res.status(404).send({ message: 'Id not found' });
+//         }
+//
+//         const item = await new FeedItem({
+//                 caption: caption,
+//                 url: fileName
+//         });
+//
+//         const saved_item = await item.save();
+//
+//         saved_item.url = AWS.getGetSignedUrl(saved_item.url);
+//         res.status(201).send(saved_item);
+// });
 
 
 // Get a signed url to put a new item in the bucket
-router.get('/signed-url/:fileName', 
-    requireAuth, 
+router.get('/signed-url/:fileName',
+    requireAuth,
     async (req: Request, res: Response) => {
     let { fileName } = req.params;
     const url = AWS.getPutSignedUrl(fileName);
     res.status(201).send({url: url});
 });
 
-// Post meta data and the filename after a file is uploaded 
+// Post meta data and the filename after a file is uploaded
 // NOTE the file name is they key name in the s3 bucket.
 // body : {caption: string, fileName: string};
-router.post('/', 
-    requireAuth, 
+router.post('/',
+    requireAuth,
     async (req: Request, res: Response) => {
     const caption = req.body.caption;
     const fileName = req.body.url;
