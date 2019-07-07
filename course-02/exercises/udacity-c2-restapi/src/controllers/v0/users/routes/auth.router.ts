@@ -7,7 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import { NextFunction } from 'connect';
 
 import * as EmailValidator from 'email-validator';
-import { config } from '../../../config/config';
+import { config } from '../../../../config/config';
 
 const router: Router = Router();
 
@@ -22,7 +22,7 @@ async function comparePasswords(plainTextPassword: string, hash: string): Promis
 }
 
 function generateJWT(user: User): string {
-    return jwt.sign(user, config.dev.secret);
+    return jwt.sign(JSON.parse(JSON.stringify(user));, config.dev.secret);
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
